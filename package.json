@@ -6,11 +6,13 @@
   "scripts": {
     "build": "remix vite:build",
     "dev": "remix vite:dev",
-    "format": "pnpx @biomejs/biome format ./ --write",
-    "lint": "pnpx @biomejs/biome lint ./ --write",
-    "lint:staged": "biome check --error-on-warnings --no-errors-on-unmatched --staged ./**/*.{js,ts}",
     "start": "remix-serve ./build/server/index.js",
     "typecheck": "tsc",
+    "format": "pnpx @biomejs/biome format ./ --write",
+    "lint": "pnpx @biomejs/biome lint ./ --write",
+    "test": "vitest",
+    "test:staged": "vitest --run",
+    "lint:staged": "biome check --error-on-warnings --no-errors-on-unmatched --staged ./**/*.{js,ts}",
     "prepare": "husky"
   },
   "husky": {
@@ -20,21 +22,21 @@
   },
   "lint-staged": {
     "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
-      "biome check --files-ignore-unknown=true",
       "biome check --write --no-errors-on-unmatched",
       "biome check --write --organize-imports-enabled=false --no-errors-on-unmatched",
       "biome check --write --unsafe --no-errors-on-unmatched",
       "biome format --write --no-errors-on-unmatched",
-      "biome lint --write --no-errors-on-unmatched"
+      "biome lint --write --no-errors-on-unmatched",
+      "biome check --files-ignore-unknown=true"
     ],
-    "*": [
-      "biome check --no-errors-on-unmatched --files-ignore-unknown=true"
-    ]
+    "*": ["biome check --no-errors-on-unmatched --files-ignore-unknown=true"],
+    "**/*.{js,jsx,ts,tsx}": ["pnpm run test:staged"]
   },
   "dependencies": {
     "@remix-run/node": "^2.9.2",
     "@remix-run/react": "^2.9.2",
     "@remix-run/serve": "^2.9.2",
+    "@remix-run/testing": "^2.9.2",
     "isbot": "^4.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -42,16 +44,21 @@
   "devDependencies": {
     "@biomejs/biome": "1.8.2",
     "@remix-run/dev": "^2.9.2",
+    "@testing-library/jest-dom": "^6.4.6",
+    "@testing-library/react": "^16.0.0",
+    "@testing-library/user-event": "^14.5.2",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "autoprefixer": "^10.4.19",
     "husky": "^9.0.11",
+    "jsdom": "^24.1.0",
     "lint-staged": "^15.2.7",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.1.6",
     "vite": "^5.1.0",
-    "vite-tsconfig-paths": "^4.2.1"
+    "vite-tsconfig-paths": "^4.2.1",
+    "vitest": "^1.6.0"
   },
   "engines": {
     "node": ">=20.0.0"
