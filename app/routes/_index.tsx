@@ -40,7 +40,7 @@ export default function Index() {
           ])
         }
       >
-        Create a Note
+        Create a Not
       </button>
       <ul>
         {notes.map((note) => {
