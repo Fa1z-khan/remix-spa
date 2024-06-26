@@ -25,7 +25,7 @@ describe("Home Page", () => {
   it("should create a new note when click the button", async () => {
     await waitFor(async () => {
       const createNoteButton = screen.getByRole("button", {
-        name: "Create a Not",
+        name: "Create a Note",
       });
 
       await user.click(createNoteButton);
