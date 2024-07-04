@@ -17,10 +17,11 @@ export default function Index() {
   ]);
 
   return (
-    <main className="container">
-      <h1>Welcome to Remix</h1>
+    <main className="h-screen w-screen flex flex-col items-center justify-center gap-4">
+      <h1 className="text-4xl font-bold my-12">Welcome to Remix</h1>
       <button
         type="button"
+        className="px-4 py-2 rounded-md bg-blue-500 text-white"
         onClick={() =>
           setNotes([
             ...notes,
