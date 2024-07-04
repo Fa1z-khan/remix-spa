@@ -1,84 +1,51 @@
-# Remix-SPA
+# templates/spa
 
-## Welcome to Remix!
+This template leverages [Remix SPA Mode](https://remix.run/docs/en/main/guides/spa-mode) to build your app as a Single-Page Application using [Client Data](https://remix.run/docs/en/main/guides/client-data) for all of your data loads and mutations.
 
-This is a single-page application (SPA) built with [Remix](https://remix.run/), a full-stack web framework that lets you focus on the user interface while handling server-side rendering and data fetching seamlessly.
+## Setup
 
-### 📖 [Remix Documentation](https://remix.run/docs)
-
-## Table of Contents
-
-- [Development](#development)
-- [Deployment](#deployment)
-- [Styling](#styling)
-- [Scripts](#scripts)
-- [Dependencies](#dependencies)
-- [DevDependencies](#devdependencies)
+```shellscript
+npx create-remix@latest --template remix-run/remix/templates/spa
+```
 
 ## Development
 
-To run the development server, use the following command:
+You can develop your SPA app just like you would a normal Remix app, via:
 
-```sh
-pnpm run dev
+```shellscript
+npm run dev
 ```
 
-This will start the development server using Vite, which provides fast build times and a smooth development experience.
+## Production
 
-## Deployment
+When you are ready to build a production version of your app, `npm run build` will generate your assets and an `index.html` for the SPA.
 
-First, build your app for production:
-
-```sh
-pnpm run build
+```shellscript
+npm run build
 ```
 
-Then run the app in production mode:
+### Preview
 
-```sh
-pnpm start
+You can preview the build locally with [vite preview](https://vitejs.dev/guide/cli#vite-preview) to serve all routes via the single `index.html` file:
+
+```shellscript
+npm run preview
 ```
 
-### DIY Deployment
+> [!IMPORTANT]
+>
+> `vite preview` is not designed for use as a production server
 
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready. Make sure to deploy the output of `pnpm run build`:
+### Deployment
 
-- `build/server`
-- `build/client`
+You can then serve your app from any HTTP server of your choosing. The server should be configured to serve multiple paths from a single root `/index.html` file (commonly called "SPA fallback"). Other steps may be required if the server doesn't directly support this functionality.
+
+For a simple example, you could use [sirv-cli](https://www.npmjs.com/package/sirv-cli):
+
+```shellscript
+npx sirv-cli build/client/ --single
+```
 
 ## Styling
 
-This project comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer. For more information, see the [Vite documentation on CSS](https://vitejs.dev/guide/features.html#css).
-
-## Scripts
-
-Here's a list of available scripts in the project:
-
-- **build**: `remix vite:build` - Builds the project for production.
-- **dev**: `remix vite:dev` - Starts the development server.
-- **start**: `remix-serve ./build/server/index.js` - Serves the production build.
-- **typecheck**: `tsc` - Runs TypeScript type checking.
-- **format**: `pnpx @biomejs/biome format ./ --write` - Formats the code.
-- **lint**: `pnpx @biomejs/biome lint ./ --write` - Lints the code.
-- **test**: `vitest` - Runs the tests.
-- **test:staged**: `vitest --run` - Runs tests on staged files.
-- **lint:staged**: `biome check --error-on-warnings --no-errors-on-unmatched --staged ./**/*.{js,ts}` - Lints staged files.
-- **prepare**: `husky` - Sets up Husky for Git hooks.
-
-## Husky and Lint-Staged Configuration
-
-This project uses Husky and Lint-Staged to ensure code quality. The following hooks are configured:
-
-- **pre-commit**: Runs `pnpm lint:staged` before commits.
-
-### Lint-Staged
-
-Lint-Staged is configured to run the following commands on staged files:
-
-- **JavaScript/TypeScript files**: Runs tests and various Biome checks and formatting commands.
-- **Other files**: Runs Biome checks with specific options.
-
-
-## Node Engine
-
-Ensure your Node.js version is >= 20.0.0.
+This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever css framework you prefer. See the [Vite docs on css](https://vitejs.dev/guide/features.html#css) for more information.
